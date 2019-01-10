@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Vector;
 
 public class GUI extends JFrame {
@@ -25,6 +26,7 @@ public class GUI extends JFrame {
         generateMaze(maze, posX, posY);
         maze[1][1] = PLAYER;
         maze[19][19] = EXIT_DOOR;
+        randomizeItem();
         gamePanel.setLayout(null);
         gamePanel.setSize(21*20, 21*20);
 
@@ -42,6 +44,34 @@ public class GUI extends JFrame {
     void initializeGUI(){
 
     }
+
+    void randomizeItem(){
+        int counterTrap = 3;
+        int counterCoin = 5;
+
+        while(counterCoin != 0)
+        {
+            int x = new Random().nextInt(21);
+            int y = new Random().nextInt(21);
+
+            if(maze[x][y] == FLOOR){
+                counterCoin--;
+                maze[x][y] = COIN;
+            }
+        }
+
+        while(counterTrap != 0){
+            int x = new Random().nextInt(21);
+            int y = new Random().nextInt(21);
+
+            if(maze[x][y] == FLOOR){
+                counterTrap--;
+                maze[x][y] = TRAP;
+            }
+        }
+
+    }
+
 
     class PapanGame extends JPanel{
 
@@ -79,13 +109,8 @@ public class GUI extends JFrame {
                 isVisited[i][j] = false;
             }
         }
-
-
-
     }
     void generateMaze(char[][] maze, int posX, int posY){
-
-        int count = 0;
         Vector<Pair>temp = new Vector<>();
 
         if(posY-2 > 0 && !isVisited[posX][posY-2]){
@@ -142,10 +167,6 @@ public class GUI extends JFrame {
             stack.remove(0);
             generateMaze(maze, x, y);
         }
-
-
-
-
 
 
     }
