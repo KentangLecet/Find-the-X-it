@@ -1,16 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Runnable{
     final char PLAYER = '@';
     final char EXIT_DOOR = '!';
     final char COIN = '$';
     final char TRAP = '0';
     final char FLOOR = ' ';
     final char WALL = '#';
+
+    int playerXPos = 1;
+    int playerYPos = 1;
+
+    boolean isPause = false;
+    boolean isRunning = true;
 
     int posX = 1;
     int posY = 1;
@@ -43,7 +51,7 @@ public class GUI extends JFrame {
         gamePanel.setSize(21*20, 21*20);
         add(gamePanel, BorderLayout.CENTER);
         initializeGUI();
-
+        addListener();
         setVisible(true);
         setSize(700, 21*20);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -112,7 +120,7 @@ public class GUI extends JFrame {
     void randomizeItem(){
         int counterTrap = 3;
         int counterCoin = 5;
-        maze[1][1] = PLAYER;
+        maze[1][1] = FLOOR;
         maze[19][19] = EXIT_DOOR;
         while(counterCoin != 0)
         {
@@ -134,6 +142,11 @@ public class GUI extends JFrame {
                 maze[x][y] = TRAP;
             }
         }
+
+    }
+
+    @Override
+    public void run() {
 
     }
 
@@ -163,8 +176,7 @@ public class GUI extends JFrame {
                 for(int j = 0 ; j < 21 ; j++){
                     if(maze[i][j] == WALL){
                         g.setColor(Color.BLACK);
-                    }else if(maze[i][j] == PLAYER){
-//                        g.setColor(Color.decode("#07F723"));
+                    }else if(j == playerYPos && i == playerXPos){
                         g.setColor(Color.decode("#07F723"));
                     }else if(maze[i][j] == EXIT_DOOR){
                         g.setColor(Color.decode("#00C3E5"));
@@ -257,6 +269,55 @@ public class GUI extends JFrame {
         }
     }
 
+    void addListener(){
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(Character.toLowerCase(e.getKeyChar()) == 'a'){
+
+                    if(maze[playerXPos-1][playerYPos] != WALL){
+                        playerXPos--;
+                        gamePanel.repaint();
+                        System.out.println("Heeee");
+                    }
+                }else if(Character.toLowerCase(e.getKeyChar()) == 's'){
+                    if(maze[playerXPos][playerYPos+1] != WALL){
+                        playerYPos++;
+                        gamePanel.repaint();
+                        System.out.println("Heeee");
+                    }
+                }else if(Character.toLowerCase(e.getKeyChar()) == 'd'){
+                    if(maze[playerXPos+1][playerYPos] != WALL){
+                        playerXPos++;
+                        gamePanel.repaint();
+                    }
+                }else if(Character.toLowerCase(e.getKeyChar()) == 'w'){
+                    if(maze[playerXPos][playerYPos-1] != WALL){
+                        playerYPos--;
+                        gamePanel.repaint();
+                    }
+                }
+
+                if(maze[playerXPos][playerYPos] == COIN){
+                    System.out.println("COIN");
+                }
+                if(maze[playerXPos][playerYPos] == TRAP){
+                    System.out.println("TRAP");
+                }
+
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+    }
 
 }
