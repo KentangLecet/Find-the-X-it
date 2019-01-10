@@ -1,19 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
 
-public class GUI extends JFrame implements Runnable{
+public class GUI extends JFrame{
     final char PLAYER = '@';
     final char EXIT_DOOR = '!';
     final char COIN = '$';
     final char TRAP = '0';
     final char FLOOR = ' ';
     final char WALL = '#';
-
+    int time = 25;
+    int level = 1;
+    int lives = 3;
+    JButton exit = new JButton("Exit");
     int playerXPos = 1;
     int playerYPos = 1;
 
@@ -39,9 +41,30 @@ public class GUI extends JFrame implements Runnable{
     JLabel hovThis = new JLabel("Hover ");
     JLabel thisOne = new JLabel("THIS" );
     JLabel toShow = new JLabel("to show exit button");
-
-
+    Thread t;
+    Runnable r;
+    KeyListener keyListener;
     public GUI(){
+
+        r = new Runnable() {
+            @Override
+            public void run() {
+                while (time != 0) {
+                    try {
+                        Thread.sleep(1000);
+                        time--;
+                        timeValue.setText(String.valueOf(time));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                removeKeyListener(keyListener);
+                JOptionPane.showMessageDialog(null, "You lose");
+            }
+        };
+
+        t = new Thread(r);
+        t.start();
         setLayout(new BorderLayout());
         initializeMaze();
         generateMaze(maze, posX, posY);
@@ -53,7 +76,7 @@ public class GUI extends JFrame implements Runnable{
         initializeGUI();
         addListener();
         setVisible(true);
-        setSize(700, 21*20);
+        setSize(700, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -62,7 +85,7 @@ public class GUI extends JFrame implements Runnable{
 
 
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(7, 1));
+        rightPanel.setLayout(new GridLayout(8, 1));
         Font titleFont = titleLbl.getFont();
         titleLbl.setFont(new Font(titleFont.getName(), Font.BOLD, 22));
 //        titleLbl.setBounds(2, 5, 20, 20);
@@ -107,10 +130,10 @@ public class GUI extends JFrame implements Runnable{
         rightPanel.add(lifePanel);
         rightPanel.add(levelPanel);
         rightPanel.add(legend);
-
+        exit.setVisible(false);
         rightPanel.add(pressSpace);
         rightPanel.add(hoverThis);
-
+        rightPanel.add(exit);
         add(rightPanel, BorderLayout.EAST);
 
 
@@ -142,11 +165,6 @@ public class GUI extends JFrame implements Runnable{
                 maze[x][y] = TRAP;
             }
         }
-
-    }
-
-    @Override
-    public void run() {
 
     }
 
@@ -270,7 +288,43 @@ public class GUI extends JFrame implements Runnable{
     }
 
     void addListener(){
-        addKeyListener(new KeyListener() {
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+
+        thisOne.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exit.setVisible(true);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+
+        addKeyListener(keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -278,39 +332,77 @@ public class GUI extends JFrame implements Runnable{
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(Character.toLowerCase(e.getKeyChar()) == 'a'){
+                if(!isPause) {
+                    if (Character.toLowerCase(e.getKeyChar()) == 'a') {
 
-                    if(maze[playerXPos-1][playerYPos] != WALL){
-                        playerXPos--;
-                        gamePanel.repaint();
-                        System.out.println("Heeee");
+                        if (maze[playerXPos - 1][playerYPos] != WALL) {
+                            playerXPos--;
+                            gamePanel.repaint();
+                            System.out.println("Heeee");
+                        }
+                    } else if (Character.toLowerCase(e.getKeyChar()) == 's') {
+                        if (maze[playerXPos][playerYPos + 1] != WALL) {
+                            playerYPos++;
+                            gamePanel.repaint();
+                            System.out.println("Heeee");
+                        }
+                    } else if (Character.toLowerCase(e.getKeyChar()) == 'd') {
+                        if (maze[playerXPos + 1][playerYPos] != WALL) {
+                            playerXPos++;
+                            gamePanel.repaint();
+                        }
+                    } else if (Character.toLowerCase(e.getKeyChar()) == 'w') {
+                        if (maze[playerXPos][playerYPos - 1] != WALL) {
+                            playerYPos--;
+                            gamePanel.repaint();
+                        }
                     }
-                }else if(Character.toLowerCase(e.getKeyChar()) == 's'){
-                    if(maze[playerXPos][playerYPos+1] != WALL){
-                        playerYPos++;
-                        gamePanel.repaint();
-                        System.out.println("Heeee");
-                    }
-                }else if(Character.toLowerCase(e.getKeyChar()) == 'd'){
-                    if(maze[playerXPos+1][playerYPos] != WALL){
-                        playerXPos++;
-                        gamePanel.repaint();
-                    }
-                }else if(Character.toLowerCase(e.getKeyChar()) == 'w'){
-                    if(maze[playerXPos][playerYPos-1] != WALL){
-                        playerYPos--;
-                        gamePanel.repaint();
+                }
+                if(e.getKeyChar() == ' '){
+                    if(!isPause){
+                        t.suspend();
+                        isPause = true;
+                    }else{
+                        t.resume();
+                        isPause = false;
                     }
                 }
 
                 if(maze[playerXPos][playerYPos] == COIN){
                     System.out.println("COIN");
+                    time += 5;
+                    maze[playerXPos][playerYPos] = FLOOR;
                 }
                 if(maze[playerXPos][playerYPos] == TRAP){
                     System.out.println("TRAP");
+
+                    lives--;
+                    liveValue.setText(String.valueOf(lives));
+                    maze[playerXPos][playerYPos] = FLOOR;
+                    JOptionPane.showMessageDialog(null, "You loses a life");
+                    if(lives == 0){
+                        JOptionPane.showMessageDialog(null, "You lose");
+
+                        removeKeyListener(keyListener);
+                    }
                 }
 
+                if(maze[playerXPos][playerYPos] == EXIT_DOOR){
 
+                    JOptionPane.showMessageDialog(null, "You win!");
+
+                    level++;
+                    levelValue.setText(String.valueOf(level));
+                    time -= 3;
+
+                    resetMap();
+                    if(level== 8){
+                        JOptionPane.showMessageDialog(null, "You win! Seriously win");
+                        dispose();
+                    }
+
+
+                }
             }
 
             @Override
@@ -319,5 +411,25 @@ public class GUI extends JFrame implements Runnable{
             }
         });
     }
+
+    void resetMap(){
+        for(int i = 0 ; i <= 20 ;i++){
+            for(int j = 0 ; j <= 20 ; j++){
+                maze[i][j] = '#';
+                isVisited[i][j] = false;
+            }
+        }
+
+        posX = 1;
+        posY = 1;
+
+        generateMaze(maze, posX, posY);
+        randomizeItem();
+
+        playerXPos = 1;
+        playerYPos = 1;
+
+    }
+
 
 }

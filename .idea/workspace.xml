@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de49ccee-8ad9-41ef-8f9c-f8ec491c7498" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Find the X-it/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Find the X-it/GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Find the X-it/GUI$Legend.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Find the X-it/GUI$Legend.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Find the X-it/GUI$PapanGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Find the X-it/GUI$PapanGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Find the X-it/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Find the X-it/GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -29,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/src/Pair.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="368">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <element signature="e#85#86#0" expanded="true" />
                 <element signature="e#109#110#0" expanded="true" />
@@ -43,10 +48,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="149" selection-start-line="149" selection-end-line="149" />
+            <state relative-caret-position="572">
+              <caret line="362" column="36" lean-forward="true" selection-start-line="362" selection-start-column="36" selection-end-line="362" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#8232#8233#0" expanded="true" />
+                <element signature="e#8273#8274#0" expanded="true" />
+                <element signature="e#8464#8465#0" expanded="true" />
+                <element signature="e#8500#8501#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,7 +117,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547150720640" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547153377740" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -148,15 +157,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1547135935430</updated>
-      <workItem from="1547136170664" duration="13950000" />
+      <workItem from="1547136170664" duration="16591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13950000" />
+    <option name="totallyTimeSpent" value="16591000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -206,7 +216,7 @@
     <entry file="file://$PROJECT_DIR$/src/Pair.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
           <folding>
             <element signature="e#85#86#0" expanded="true" />
             <element signature="e#109#110#0" expanded="true" />
@@ -218,10 +228,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
+        <state relative-caret-position="572">
+          <caret line="362" column="36" lean-forward="true" selection-start-line="362" selection-start-column="36" selection-end-line="362" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8232#8233#0" expanded="true" />
+            <element signature="e#8273#8274#0" expanded="true" />
+            <element signature="e#8464#8465#0" expanded="true" />
+            <element signature="e#8500#8501#0" expanded="true" />
           </folding>
         </state>
       </provider>
