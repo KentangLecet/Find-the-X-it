@@ -15,11 +15,4 @@ public class Pair {
         this.y = y;
     }
 
-    public boolean isVisited(int x, int y){
-        if(this.x == x && this.y == y){
-            return true;
-        }
-        return false;
-    }
-
 }
